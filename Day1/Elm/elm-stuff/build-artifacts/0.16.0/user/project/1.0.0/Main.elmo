@@ -1,0 +1,53 @@
+Elm.Main = Elm.Main || {};
+Elm.Main.make = function (_elm) {
+   "use strict";
+   _elm.Main = _elm.Main || {};
+   if (_elm.Main.values) return _elm.Main.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Http = Elm.Http.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm),
+   $Task = Elm.Task.make(_elm);
+   var _op = {};
+   var inBasement = function (floor) {    return _U.eq(floor,-1);};
+   var traverseFloor = function (paren) {    var _p0 = paren;switch (_p0) {case "(": return 1;case ")": return -1;default: return 0;}};
+   var parensToValues = function (parens) {    return A2($List.map,traverseFloor,A2($String.split,"",parens));};
+   var floor = 0;
+   var day1part1 = function (input) {    return A3($List.foldl,F2(function (x,y) {    return x + y;}),floor,parensToValues(input));};
+   var checkSliceReachesBasementOrContinue = F2(function (input,index) {
+      checkSliceReachesBasementOrContinue: while (true) if (inBasement(day1part1(A3($String.slice,0,index,input)))) return index; else if (_U.cmp(index,
+         $String.length(input)) > 0) return 0; else {
+               var _v1 = input,_v2 = index + 1;
+               input = _v1;
+               index = _v2;
+               continue checkSliceReachesBasementOrContinue;
+            }
+   });
+   var day1part2 = function (input) {    return A2(checkSliceReachesBasementOrContinue,input,0);};
+   var inputMailbox = $Signal.mailbox("");
+   var requests = Elm.Native.Task.make(_elm).perform($Task.toResult(A2($Task.andThen,$Http.getString("input.txt"),$Signal.send(inputMailbox.address))));
+   var view = function (input) {
+      return A2($Html.div,
+      _U.list([]),
+      _U.list([A2($Html.div,_U.list([]),_U.list([$Html.text(A2($Basics._op["++"],"Day 1 Part 1: ",$Basics.toString(day1part1(input))))]))
+              ,A2($Html.div,_U.list([]),_U.list([$Html.text(A2($Basics._op["++"],"Day 1 Part 2: ",$Basics.toString(day1part2(input))))]))]));
+   };
+   var main = A2($Signal.map,view,inputMailbox.signal);
+   return _elm.Main.values = {_op: _op
+                             ,main: main
+                             ,view: view
+                             ,inputMailbox: inputMailbox
+                             ,floor: floor
+                             ,parensToValues: parensToValues
+                             ,traverseFloor: traverseFloor
+                             ,day1part1: day1part1
+                             ,inBasement: inBasement
+                             ,checkSliceReachesBasementOrContinue: checkSliceReachesBasementOrContinue
+                             ,day1part2: day1part2};
+};
