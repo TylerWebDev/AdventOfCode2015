@@ -15,20 +15,6 @@ data Wire k
     | Not k
     deriving (Show)
 
-testMap :: Map.Map String (Wire String)
-testMap =
-    Map.fromList
-    [ ("a", Link "lx")
-    , ("lx", Or "lw" "lv")
-    , ("lw", And "1" "x")
-    , ("lv", Or "1" "x")
-    , ("x", Const 32)
-    ]
-
-emptyCache :: Map.Map String Int
-emptyCache =
-    Map.fromList []
-
 lookupEval :: Map.Map String (Wire String) -> String -> Maybe Int
 lookupEval m =
     eval
