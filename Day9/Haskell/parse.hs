@@ -1,6 +1,5 @@
 module Parse where
 
-import Pair
 import Text.Parsec
 
 type DistanceTuple =
