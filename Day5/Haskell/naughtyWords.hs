@@ -30,10 +30,6 @@ hasDuplicatedLetter :: Text -> Bool
 hasDuplicatedLetter str =
     containsAtLeastTwo $ group (unpack str)
 
-testString :: Text
-testString =
-    "abcdefg"
-
 naughtyCombinations :: [Text]
 naughtyCombinations =
     [ "ab"
