@@ -1,11 +1,12 @@
 module Advent where
 
+import Control.Monad
 import Data.List
 
 say :: String -> String
 say str =
-    let appendHead s = (++ [head s]) in
-        concatMap (\i -> appendHead i . show . length $ i) $ group str
+    let encode s = [show $ length s, take 1 s] in
+        concat $ (group >=> encode) str
 
 getNthSayIteration :: Int -> String
 getNthSayIteration n =
