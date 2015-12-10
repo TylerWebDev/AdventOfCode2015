@@ -10,9 +10,7 @@ say str =
 
 getNthSayIteration :: Int -> String
 getNthSayIteration n =
-    -- We have to give n + 1 as the argument because the first result of 'iterate'
-    -- is the identity case, e.g. the 41st element is the 40th application
-    last . take (n + 1) $ iterate say "1321131112"
+    iterate say "1321131112" !! n
 
 -- Implementations
 
