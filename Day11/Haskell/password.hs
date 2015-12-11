@@ -15,14 +15,11 @@ nextPassword str =
 
 -- Components for requirement 1
 sublistThree :: [a] -> [[a]]
-sublistThree (a:b:c:xs) =
-    [a, b, c] : sublistThree (b : c : xs)
-sublistThree [_, _] =
-    []
-sublistThree [_] =
-    []
-sublistThree [] =
-    []
+sublistThree l
+    | length l >= 3 =
+        take 3 l : sublistThree (tail l)
+    | otherwise =
+        []
 
 isCharStraight :: String -> Bool
 isCharStraight [a, b, c] =
